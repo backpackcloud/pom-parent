@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Copyright (c) 2019 Marcelo Guimaraes <ataxexe@backpackcloud.com>
+  ~
+  ~ Permission  is hereby granted, free of charge, to any person obtaining
+  ~ a  copy  of  this  software  and  associated  documentation files (the
+  ~ "Software"),  to  deal  in the Software without restriction, including
+  ~ without  limitation  the  rights to use, copy, modify, merge, publish,
+  ~ distribute,  sublicense,  and/or  sell  copies of the Software, and to
+  ~ permit  persons to whom the Software is furnished to do so, subject to
+  ~ the following conditions:
+  ~ The  above  copyright  notice  and  this  permission  notice  shall be
+  ~ included  in  all  copies  or  substantial  portions  of the Software.
+  ~
+  ~ THE  SOFTWARE  IS  PROVIDED  "AS  IS",  WITHOUT  WARRANTY OF ANY KIND,
+  ~ EXPRESS  OR  IMPLIED,  INCLUDING  BUT NOT LIMITED TO THE WARRANTIES OF
+  ~ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  ~ IN  NO  EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  ~ CLAIM,  DAMAGES  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  ~ TORT  OR  OTHERWISE,  ARISING  FROM,  OUT OF OR IN CONNECTION WITH THE
+  ~ SOFTWARE   OR   THE   USE   OR   OTHER   DEALINGS  IN  THE  SOFTWARE.
+  -->
+
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.backpackcloud</groupId>
+  <artifactId>pom-parent</artifactId>
+  <packaging>pom</packaging>
+
+  <version>1.0.0</version>
+  <name>parent</name>
+
+  <description>
+    This is the parent pom
+  </description>
+
+  <url>https://github.com/backpackcloud/parent</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    <maven-release-plugin.version>2.5</maven-release-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>http://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>ataxexe</id>
+      <name>Marcelo Guimaraes</name>
+      <email>ataxexe@backpackcloud.com</email>
+      <url>http://www.backpackcloud.com</url>
+      <organizationUrl>https://github.com/backpackcloud</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git@github.com:backpackcloud/pom-parent.git</connection>
+    <url>https://github.com/backpackcloud/pom-parent</url>
+  </scm>
+
+  <profiles>
+    <profile>
+      <id>sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <useAgent>true</useAgent>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>sonatype</id>
+      <properties>
+        <distribution.id>oss-sonatype</distribution.id>
+        <distribution.url>https://oss.sonatype.org/</distribution.url>
+        <distribution.url.release>https://oss.sonatype.org/service/local/staging/deploy/maven2/</distribution.url.release>
+        <distribution.url.snapshot>https://oss.sonatype.org/content/repositories/snapshots</distribution.url.snapshot>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>package-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>package-javadoc</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>${nexus-staging-maven-plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>${distribution.id}</serverId>
+          <nexusUrl>${distribution.url}</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+        <configuration>
+          <tagNameFormat>v{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>${distribution.id}</id>
+      <url>${distribution.url.snapshot}</url>
+    </snapshotRepository>
+    <repository>
+      <id>${distribution.id}</id>
+      <url>${distribution.url.release}</url>
+    </repository>
+  </distributionManagement>
+</project>
