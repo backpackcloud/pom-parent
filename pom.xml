@@ -32,7 +32,7 @@
   <artifactId>pom-parent</artifactId>
   <packaging>pom</packaging>
 
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>parent</name>
 
   <description>
@@ -95,7 +95,8 @@
                   <goal>sign</goal>
                 </goals>
                 <configuration>
-                  <useAgent>true</useAgent>
+                  <keyname>${gpg.keyname}</keyname>
+                  <passphraseServerId>${gpg.keyname}</passphraseServerId>
                 </configuration>
               </execution>
             </executions>
