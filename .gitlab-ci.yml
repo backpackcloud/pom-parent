@@ -1,0 +1,18 @@
+image: docker-registry.default.svc:5000/backpackcloud/maven
+
+stages:
+  - release
+
+mvn:publish:sonatype:
+  stage: release
+  script:
+    - release sonatype
+  only:
+    - tags
+
+mvn:publish:internal:
+  stage: release
+  script:
+    - release backpack
+  only:
+    - tags
