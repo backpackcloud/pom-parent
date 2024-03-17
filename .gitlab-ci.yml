@@ -1,4 +1,4 @@
-image: registry.backpackcloud.com:5000/backpackcloud/maven
+image: backpackcloud/maven
 
 stages:
   - release
@@ -6,4 +6,4 @@ stages:
 mvn:publish:
   stage: release
   script:
-    - release backpack
+    - release
