@@ -30,7 +30,7 @@
   <artifactId>pom-parent</artifactId>
   <packaging>pom</packaging>
 
-  <version>3.0.0</version>
+  <version>4.0.0-SNAPSHOT</version>
   <name>parent</name>
 
   <description>
@@ -44,23 +44,24 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     
     <maven.compiler.parameters>true</maven.compiler.parameters>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
 
-    <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
-    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-    <maven-release-plugin.version>2.5</maven-release-plugin.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-    <nexus-staging-maven-plugin.version>1.6.9</nexus-staging-maven-plugin.version>
+    <maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
+    <maven-compiler-plugin-version>3.13.0</maven-compiler-plugin-version>
+    <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+    <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+    <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+
+    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
   </properties>
 
   <licenses>
     <license>
       <name>The MIT License</name>
-      <url>http://opensource.org/licenses/MIT</url>
+      <url>https://opensource.org/licenses/MIT</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -68,9 +69,9 @@
   <developers>
     <developer>
       <id>ataxexe</id>
-      <name>Marcelo Guimaraes</name>
+      <name>Marcelo Guimarães</name>
       <email>ataxexe@backpackcloud.com</email>
-      <url>http://www.backpackcloud.com</url>
+      <url>https://www.backpackcloud.com</url>
       <organizationUrl>https://github.com/backpackcloud</organizationUrl>
     </developer>
   </developers>
@@ -105,15 +106,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>sonatype</id>
-      <properties>
-        <distribution.id>oss-sonatype</distribution.id>
-        <distribution.url>https://oss.sonatype.org/</distribution.url>
-        <distribution.url.release>https://oss.sonatype.org/service/local/staging/deploy/maven2/</distribution.url.release>
-        <distribution.url.snapshot>https://oss.sonatype.org/content/repositories/snapshots</distribution.url.snapshot>
-      </properties>
     </profile>
   </profiles>
 

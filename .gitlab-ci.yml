@@ -6,4 +6,5 @@ stages:
 mvn:publish:
   stage: release
   script:
-    - release
+    - release downstream
+    - release upstream
