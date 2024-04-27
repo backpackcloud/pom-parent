@@ -1,10 +1,15 @@
 image: registry.backpackcloud.com/backpackcloud/maven
 
 stages:
-  - release
+  - downstream
+  - upstream
 
-mvn:publish:
-  stage: release
+downstream:publish:
+  stage: downstream
   script:
     - release downstream
+
+upstream:publish:
+  stage: upstream
+  script:
     - release upstream
